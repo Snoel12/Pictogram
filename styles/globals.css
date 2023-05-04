@@ -9,4 +9,7 @@
   .hid {
     @apply h-4 invisible;
   }
+  .btn {
+    @apply h-7 hover:scale-125 cursor-pointer transition-all duration-150 ease-out;
+  }
 }
