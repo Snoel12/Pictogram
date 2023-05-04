@@ -1,5 +1,5 @@
 module.exports = {
   images: {
-    domains: ["https://e1.pxfuel.com/"],
+    domains: ["https://e1.pxfuel.com/", "https://cdna.artstation.com/"],
   },
 };
