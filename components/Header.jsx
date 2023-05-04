@@ -17,13 +17,11 @@ const Header = () => {
       <div className="flex justify-between max-w-6xl">
         {/*Logo*/}
 
-        <div className="relative hidden lg:inline-grid w-24 h-24 cursor-pointer">
-          <Image
-            src={titleLogo}
-            alt="title logo"
-            layout="fill"
-            objectFit="contain"
-          />
+        <div className="relative hidden lg:inline-grid w-24 h-24 cursor-pointer object-fill">
+          <div className="flex flex-col">
+            <div className="h-4 invisible">jjjjj</div>
+            <Image src={titleLogo} alt="title logo" />
+          </div>
         </div>
 
         <div className="relative w-10 h-10 lg:hidden flex-shrink-0 cursor-pointer">
