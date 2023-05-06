@@ -11,8 +11,11 @@ import {
   Bars3Icon,
 } from "@heroicons/react/24/outline";
 import { HomeIcon } from "@heroicons/react/24/solid";
+import { signIn, signOut, useSession } from "next-auth/react";
 
 const Header = () => {
+  const { data: session } = useSession();
+
   return (
     <div className="shadow-sm border-b bg-white sticky top-0 z-50">
       <div className="flex justify-between max-w-6xl mx-5 lg:mx-auto">
@@ -51,20 +54,27 @@ const Header = () => {
           <div className="flex items-center justify-end space-x-4 pb-7">
             <HomeIcon className="navBtn" />
             <Bars3Icon className="h-6 md:hidden cursor-pointer" />
-            <div className="relative navBtn">
-              <PaperAirplaneIcon className="navBtn -rotate-45" />
-              <div className="absolute -top-2 -right-2 text-xs w-5 h-5 bg-red-500 rounded-full flex items-center justify-center animate-pulse text-white">
-                3
-              </div>
-            </div>
+            {session ? (
+              <>
+                <div className="relative navBtn">
+                  <PaperAirplaneIcon className="navBtn -rotate-45" />
+                  <div className="absolute -top-2 -right-2 text-xs w-5 h-5 bg-red-500 rounded-full flex items-center justify-center animate-pulse text-white">
+                    3
+                  </div>
+                </div>
 
-            <PlusCircleIcon className="navBtn" />
-            <UserGroupIcon className="navBtn" />
-            <HeartIcon className="navBtn" />
-            <img
-              src="https://cdna.artstation.com/p/assets/images/images/045/317/250/large/mario-stoshevski-mike-tyson-funart1.jpg?1642447481"
-              className="h-10 rounded-full cursor-pointer"
-            />
+                <PlusCircleIcon className="navBtn" />
+                <UserGroupIcon className="navBtn" />
+                <HeartIcon className="navBtn" />
+                <img
+                  onClick={signOut}
+                  src={session.user.image}
+                  className="h-10 w-10 rounded-full cursor-pointer"
+                />
+              </>
+            ) : (
+              <button onClick={signIn}>Sign In</button>
+            )}
           </div>
         </div>
       </div>
