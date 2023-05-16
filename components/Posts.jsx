@@ -1,44 +1,38 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Post from "./Post";
-
-const posts = [
-  {
-    id: "12",
-    username: "pablo",
-    userImg:
-      "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/955.jpg",
-    img: "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/955.jpg",
-    caption: "pull up i'll send the location",
-  },
-  {
-    id: "12",
-    username: "pablo",
-    userImg:
-      "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/955.jpg",
-    img: "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/955.jpg",
-    caption: "pull up i'll send the location",
-  },
-  {
-    id: "12",
-    username: "pablo",
-    userImg:
-      "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/955.jpg",
-    img: "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/955.jpg",
-    caption: "pull up i'll send the location",
-  },
-];
+import {
+  collection,
+  onSnapshot,
+  orderBy,
+  query,
+  sna,
+} from "firebase/firestore";
+import { db } from "@/firebase";
 
 const Posts = () => {
+  const [posts, setPosts] = useState([]);
+  useEffect(
+    () =>
+      onSnapshot(
+        query(collection(db, "posts"), orderBy("timestamp", "desc")),
+        (snapshot) => {
+          setPosts(snapshot.docs);
+        }
+      ),
+
+    [db]
+  );
+
   return (
     <div>
       {posts.map((post) => (
         <Post
           key={post.id}
           id={post.id}
-          username={post.username}
-          userImg={post.userImg}
-          img={post.img}
-          caption={post.caption}
+          username={post.data().username}
+          userImg={post.data().profileImg}
+          img={post.data().image}
+          caption={post.data().caption}
         />
       ))}
     </div>
