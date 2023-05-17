@@ -35,7 +35,7 @@ const Modal = () => {
   const uploadPost = async () => {
     if (loading) return;
     setLoading(true);
-    //1)create a post & add it to firestore
+    //1)create & add post to firestore
     //2) get newly created post's id
     //3) upload image to firebase storage with the psot id
     //4) get a download url from fb storage & update original post with image
